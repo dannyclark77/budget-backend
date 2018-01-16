@@ -1,4 +1,5 @@
-class CategoriesController < ApplicationController
+class CategoriesController < ProtectedController
+  before_action :authenticate
   before_action :set_category, only: [:show, :update, :destroy]
 
   # GET /categories
@@ -15,10 +16,10 @@ class CategoriesController < ApplicationController
 
   # POST /categories
   def create
-    @category = Category.new(category_params)
+    @category = current_user.categories.build(category_params)
 
     if @category.save
-      render json: @category, status: :created, location: @category
+      render json: @category, status: :created
     else
       render json: @category.errors, status: :unprocessable_entity
     end
@@ -39,9 +40,10 @@ class CategoriesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = Category.find(params[:id])
+      @category = current_user.categories.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
