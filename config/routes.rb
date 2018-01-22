@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :purchases
   resources :examples, except: %i[new edit]
   post '/sign-up' => 'users#signup'
   post '/sign-in' => 'users#signin'
@@ -9,4 +8,5 @@ Rails.application.routes.draw do
   patch '/change-password' => 'users#changepw'
   resources :users, only: %i[index show]
   resources :categories, except: %i[new edit]
+  resources :purchases, except: %i[new edit]
 end
