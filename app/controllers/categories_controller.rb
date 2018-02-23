@@ -4,7 +4,7 @@ class CategoriesController < ProtectedController
 
   # GET /categories
   def index
-    @categories = Category.all
+    @categories = Category.where(user_id: params[:user_id])
 
     render json: @categories
   end
