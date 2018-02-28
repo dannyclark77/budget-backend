@@ -4,7 +4,7 @@ class PurchasesController < ProtectedController
 
   # GET /purchases
   def index
-    @purchases = Purchase.all
+    @purchases = Purchase.where(user_id: params[:user_id], date: params[:startdate]..params[:enddate])
 
     render json: @purchases
   end
